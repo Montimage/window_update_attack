@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include<string.h>
 #include <curl/curl.h>
 
@@ -7,8 +8,8 @@ int main(int argc, char *argv[])
 {
   if(argc!= 4){
 printf("Insert ip, port,number_of_packets");
-printf("Example: main_curl 8000 10");
-
+printf("Example: ./main_curl localhost 8000 10000");
+exit(1);
   }
   CURL *curl;
   CURLcode res;
@@ -25,7 +26,6 @@ printf("Example: main_curl 8000 10");
   strcat(url,path);
   printf("Url  %s\n",  url);
 
-  long window_size_increment = 65535; // Set the window size increment to maximum size, 2^31-1
 
   // Initialize the libcurl library
   curl_global_init(CURL_GLOBAL_ALL);
@@ -39,7 +39,16 @@ printf("Example: main_curl 8000 10");
     //disable ssl certificate validation
   curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
   curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L);
-    // Add a custom header to the request to send the window size increment
+
+    
+
+      char payload[4096] = { 0 };
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE_LARGE, (curl_off_t)4096);
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, payload);
+
+  long window_size_increment = 65535; // Set the window size increment to maximum size, 2^31-1
+
+    // // Add a custom header to the request to send the window size increment
     char header[128];
     sprintf(header, "Window-Size-Increment: %ld", window_size_increment);
     headers = curl_slist_append(headers, header);
