@@ -12,9 +12,9 @@ WORKDIR /app
 COPY /src .
 
 # Set environment variables to allow the client to connect to the server running on localhost at port 8000
-ENV port=8000
-ENV ip=localhost
+ENV url=https://localhost:8000
 ENV reqNumber=100000
+ENV threadNumber=100
 
 ENV API_HOST=host.docker.internal
 # Install the necessary tools for building and running the client

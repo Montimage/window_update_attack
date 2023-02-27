@@ -1,7 +1,7 @@
 CC = gcc
-CFLAGS = -Wall -Werror -lcurl 
+CFLAGS = -Wall -Werror -lcurl -pthread
 CURLFLAG= -g
-LDFLAGS = -lcurl
+LDFLAGS = -lcurl -pthread
 all:  main_curl
 
 
