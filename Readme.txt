@@ -1,1 +1,1 @@
-Server to use is in folder Server/WindowUpdate
+Server to use is in folder Server/WindowUpdate. TLS required
